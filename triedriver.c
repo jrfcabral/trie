@@ -1,10 +1,11 @@
 //triedriver.c
 //author:João Cabral (joaofigueiredocabral@gmail.com)
-//date of creation: 26 of March, 2015
+//date of creation: March 27th, 2015
 #include <assert.h>
 #include "trie.h"
 int main(){
 	int i = 2;
+	int j = 3;
 	trieNode_t* t = NULL;
 
 	trieCreate(&t);
@@ -15,8 +16,9 @@ int main(){
 	trieInsert(t, "fernando", &i);
 	trieInsert(t, "fernanda", &i);
 	trieInsert(t, "fernandina", &i);
-	int *j = trieRetrieve(t, "fernand");
-	assert (j == NULL);
+	trieRemove(t, "berta");
+	int *k = trieRetrieve(t, "berta");
+	assert (k == NULL);
 
 	return 0;
 	

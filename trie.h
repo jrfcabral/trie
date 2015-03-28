@@ -1,6 +1,6 @@
 //trie.h
 //author:João Cabral (joaofigueiredocabral@gmail.com)
-//date of creation: 26 of March, 2015
+//date of creation: March 27th, 2015
 #include <stdio.h>
 
 typedef struct trieNode_t trieNode_t;

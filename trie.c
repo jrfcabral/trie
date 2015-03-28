@@ -3,11 +3,11 @@
 //date of creation: 26 of March, 2015
 #include <stdlib.h>
 #include <assert.h>
+#include <string.h>
 #include "trie.h"
 
 static trieNode_t* createNode(char key, void* val);
 static void trieCascadeInsert(trieNode_t* rootNode, char* word, void* val);
-//static void printdebug(const char* message);
 
 
 void trieCreate(trieNode_t** trie)
@@ -94,6 +94,8 @@ void trieSwap(trieNode_t* trieRoot, char* word, void* value)
 }
 
 
+
+
 static void trieCascadeInsert(trieNode_t* rootNode, char* word, void* val)
 {
     assert(rootNode->child == NULL);
@@ -128,10 +130,3 @@ static trieNode_t* createNode(char key, void* val)
     return newNode;    
 }
 
-
-
-/*static void printdebug(const char* message){
-#ifndef NODEBUG
-    //printf(message);
-#endif
-}*/
