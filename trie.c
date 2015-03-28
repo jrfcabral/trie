@@ -2,20 +2,83 @@
 //author:João Cabral (joaofigueiredocabral@gmail.com)
 //date of creation: 26 of March, 2015
 #include <stdlib.h>
+#include <assert.h>
 #include "trie.h"
 
-void trieCreate(trieNode_t* trie)
+static trieNode_t* createNode(char key, void* val);
+static void trieCascadeInsert(trieNode_t* rootNode, char* word, void* val);
+static void printdebug(const char* message);
+
+
+void trieCreate(trieNode_t** trie)
 {
-    if ( (trie = calloc(1, sizeof(trieNode_t)) == NULL ){
-        fprintf(stderr, "Calloc error at trieCreate()\n";
-        exit(-1);
-    }
-    
-    trie->key = '0';
-    trie->next = NULL;     
-    trie->previous = NULL;
-    trie->child = NULL;
-    trie->parent = NULL;
-    trie->val = NULL;    
+
+    *trie = createNode(0, NULL);   
+    assert(*trie != NULL);
+
 }
 
+void trieInsert(trieNode_t* trieRoot, char* word, void* value)
+{
+
+    if (trieRoot == NULL)// || word == NULL || value == NULL)
+        return;
+
+    trieNode_t* currNode = trieRoot;
+    while( *word != 0){
+    
+
+        //cascade insert
+        if (currNode->child == NULL){
+            trieCascadeInsert(currNode, word, value);
+            return;
+        }
+        
+                
+        
+    }   
+    
+}
+
+
+static void trieCascadeInsert(trieNode_t* rootNode, char* word, void* val)
+{
+    assert(rootNode->child == NULL);
+
+    if (!*word) //base case
+        return;
+    printf("inserindo letra %c\n", *word);        
+    if (*(word+1) == 0)
+        rootNode->child = createNode(*word, val);
+    else
+        rootNode->child = createNode(*word, NULL);
+    
+    rootNode->child->parent = rootNode;
+    
+    trieCascadeInsert(rootNode->child, ++word, val);     
+}
+
+static trieNode_t* createNode(char key, void* val)
+{
+
+    trieNode_t* newNode = calloc(1, sizeof(trieNode_t));
+    if (newNode == NULL){
+        fprintf(stderr, "Calloc error at createNode()");
+    }
+
+    newNode->key = key;
+    newNode->next = NULL;     
+    newNode->previous = NULL;
+    newNode->child = NULL;
+    newNode->parent = NULL;
+    newNode->val = val;    
+
+    return newNode;    
+}
+
+
+static void printdebug(const char* message){
+#ifndef NODEBUG
+    printf(message);
+#endif
+}
