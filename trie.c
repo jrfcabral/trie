@@ -26,32 +26,28 @@ void trieInsert(trieNode_t* trieRoot, char* word, void* value)
         return;
     
     while( *word != 0){
-        //cascade insert
+        
         if (trieRoot->child == NULL){
             trieCascadeInsert(trieRoot, word, value);
             return;
         }
-        //jump to child
+        
         trieRoot = trieRoot->child;
-        //go through all of this level's nodes, create one at the end if key not found
-        while(trieRoot->key != *word){
-            //printf("searching for neighbour %c, am at key %c\n", *word, trieRoot->key);
-            if (trieRoot->next == NULL){
-                //printf("end of this level's without finding %c\n", *word);
-
+        
+        while(trieRoot->key != *word){        
+            if (trieRoot->next == NULL){ 
                 if (!*(word+1))
                     trieRoot->next = createNode(*word, value);
                 else
                     trieRoot->next = createNode(*word, NULL);
                 trieRoot->previous = trieRoot;
             }
-            else
-                //printf("key %c has neighbour with key %c\n", trieRoot->key, trieRoot->next->key);
-            trieRoot = trieRoot->next;
+            else        
+                trieRoot = trieRoot->next;
         }
         
         word++;
-        //printf("advanced to %c\n", *word);
+        
                              
         
     }   
@@ -100,9 +96,8 @@ static trieNode_t* createNode(char key, void* val)
     if (newNode == NULL){
         //fprintf(stderr, "Calloc error at createNode()");
         exit(-1);
-    }
+    }    
     
-    printf("creating node with key %c with val %d\n", key, val == NULL);
     newNode->key = key;
     newNode->next = NULL;     
     newNode->previous = NULL;
