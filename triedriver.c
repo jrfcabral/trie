@@ -9,7 +9,11 @@ int main(){
 
 	trieCreate(&t);
 	assert (t != NULL);
-	trieInsert(t, "ana", &i);	
+	trieInsert(t, "anais", &i);	
+	trieInsert(t, "berta", &i);
+	trieInsert(t, "berto", &i);
+
+	return 0;
 	
 }
 
