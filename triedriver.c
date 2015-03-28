@@ -10,13 +10,13 @@ int main(){
 	trieCreate(&t);
 	assert (t != NULL);
 	trieInsert(t, "anais", &i);	
-	trieInsert(t, "berta", &i);
+	/*trieInsert(t, "berta", &i);
 	trieInsert(t, "berto", &i);
 	trieInsert(t, "fernando", &i);
 	trieInsert(t, "fernanda", &i);
 	trieInsert(t, "fernandina", &i);
 	int *j = trieRetrieve(t, "anais");
-	assert (*j == 2);
+	assert (*j == 2);*/
 
 	return 0;
 	

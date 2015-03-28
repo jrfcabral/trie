@@ -84,8 +84,10 @@ static void trieCascadeInsert(trieNode_t* rootNode, char* word, void* val)
 
     if (!*word)
         return;        
-    
-    rootNode->child = createNode(*word, val);    
+    if (!*(word+1))
+        rootNode->child = createNode(*word, val);    
+    else
+        rootNode->child = createNode(*word, NULL);    
     rootNode->child->parent = rootNode;
     
     trieCascadeInsert(rootNode->child, ++word, val);     
@@ -96,7 +98,7 @@ static trieNode_t* createNode(char key, void* val)
 
     trieNode_t* newNode = calloc(1, sizeof(trieNode_t));
     if (newNode == NULL){
-        //f//printf(stderr, "Calloc error at createNode()");
+        //fprintf(stderr, "Calloc error at createNode()");
         exit(-1);
     }
     
