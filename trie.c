@@ -1,6 +1,7 @@
 //trie.c
 //author:João Cabral (joaofigueiredocabral@gmail.com)
-//date of creation: 26 of March, 2015
+//date of creation: March 27th, 2015
+//ideas of implementation taken from https://www.cs.bu.edu/teaching/c/tree/trie/
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
@@ -91,6 +92,35 @@ void trieSwap(trieNode_t* trieRoot, char* word, void* value)
      if (trieRoot->val != NULL)
          trieRoot->val = value;
         
+}
+
+int  trieRemove(trieNode_t* trieRoot, char* word)
+{
+    if (trieRoot == NULL || word == NULL)
+    return -2;
+     
+    for(;*word;word++){
+       if (trieRoot->child == NULL) 
+           return -1;
+       trieRoot = trieRoot->child;
+       while(trieRoot->key != *word){
+           if (trieRoot->next == NULL) 
+               return -1;
+           trieRoot = trieRoot->next;
+       }            
+    }
+     
+    if (trieRoot->val != NULL)
+       trieRoot->val = NULL;  
+           
+    while(trieRoot->child == NULL){
+        if(trieRoot->next != NULL)
+            trieRoot->parent->child = trieRoot->next;
+        trieNode_t* temp = trieRoot->parent;
+        free(trieRoot);
+        trieRoot = temp;
+    } 
+    return 0;
 }
 
 
