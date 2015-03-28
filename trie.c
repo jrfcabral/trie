@@ -73,6 +73,26 @@ void* trieRetrieve(trieNode_t* trieRoot, char* word)
      
 }
 
+void trieSwap(trieNode_t* trieRoot, char* word, void* value)
+{
+     if (trieRoot == NULL || word == NULL)
+     return ;
+     
+     for(;*word;word++){
+        if (trieRoot->child == NULL) 
+            return;
+        trieRoot = trieRoot->child;
+        while(trieRoot->key != *word){
+            if (trieRoot->next == NULL) 
+                return;
+            trieRoot = trieRoot->next;
+        }            
+     }
+     if (trieRoot->val != NULL)
+         trieRoot->val = value;
+        
+}
+
 
 static void trieCascadeInsert(trieNode_t* rootNode, char* word, void* val)
 {
@@ -107,6 +127,7 @@ static trieNode_t* createNode(char key, void* val)
 
     return newNode;    
 }
+
 
 
 /*static void printdebug(const char* message){
